@@ -257,7 +257,7 @@ def get_pred(
                 raise NotImplementedError
     
 
-        # Generate Function
+        # NOTE: Generate Function
         output = searcher.generate(
             input_ids=tokenized_prompt,
             max_length=max_gen,
@@ -265,7 +265,7 @@ def get_pred(
             extra_end_token_ids=extra_end_token_ids
         )
         stop_flag += 1
-        if stop_flag == 2:
+        if stop_flag == 3:
             print(f"input prompt: {prompt}")
             print(f"max_length: {max_gen}, chunk_size: {gen_chunk_size}, extra_end_token_ids: {extra_end_token_ids}")
             print(f"output: {output}")

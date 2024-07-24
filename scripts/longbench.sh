@@ -5,7 +5,6 @@ config=config/mistral-inf-llm.yaml
 
 datasets="multifieldqa_en"
 
-# mkdir benchmark/longbench-result
 cd /share/kunluo/Projects/InfLLM
 python benchmark/pred.py \
 --config_path ${config} \

@@ -132,6 +132,7 @@ def patch_hf(
             attentions=all_self_attns,
         )
 
+    # NOTE: 在这里修改forward函数
     forward = huggingface_forward(ATTN_FORWRAD[attn_type](**attn_kwargs))
 
     if isinstance(model, LlamaForCausalLM):
