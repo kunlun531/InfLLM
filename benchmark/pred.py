@@ -1,5 +1,5 @@
 # https://github.com/THUDM/LongBench/blob/main/pred.py
-import os
+import os, time
 from datasets import load_from_disk
 import torch
 import json
@@ -210,6 +210,7 @@ def get_pred(
     cur = 0
     total = len(data)
 
+    stop_flag = 0
     for json_obj in tqdm(data):
         prompt = prompt_format.format(**json_obj)
 
@@ -256,13 +257,19 @@ def get_pred(
                 raise NotImplementedError
     
 
-        
+        # Generate Function
         output = searcher.generate(
-            input_ids = tokenized_prompt,
+            input_ids=tokenized_prompt,
             max_length=max_gen,
             chunk_size=gen_chunk_size,
             extra_end_token_ids=extra_end_token_ids
         )
+        stop_flag += 1
+        if stop_flag == 2:
+            print(f"input prompt: {prompt}")
+            print(f"max_length: {max_gen}, chunk_size: {gen_chunk_size}, extra_end_token_ids: {extra_end_token_ids}")
+            print(f"output: {output}")
+            time.sleep(3000)
 
         pred = post_process(output[0], model_name, dataset)
         preds.append({"pred": pred, "answers": json_obj["answers"], "all_classes": json_obj["all_classes"], "length": json_obj["length"], "token_length": len(tokenized_prompt) + max_gen})

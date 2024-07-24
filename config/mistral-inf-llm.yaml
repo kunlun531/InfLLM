@@ -1,6 +1,6 @@
 model:
   type: inf-llm
-  path: /share/kunluo/Models/Mistral-7B-Instruct-v0.2
+  path: /share/kunluo/Models/Mistral-7B-Instruct-v0.3
   block_size: 128
   n_init: 128
   n_local: 4096
